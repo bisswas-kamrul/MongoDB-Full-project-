@@ -1,14 +1,14 @@
 const List = require("../moddel/Schema");
 async function OTPcontollar(req, res) {
   const { email, otp } = req.body;
-  const userEmail = await List.findOne({ email });
+  const userEmail = await List.findOne({ email ,otp});
   if (!userEmail) {
     return res.json({
       message: "otpUser is not found",
     });
   }
 
-  if (userEmail.otp !== otp || userEmail.expireotp < Date.now()) {
+  if (userEmail.expireotp < Date.now()) {
     return res.json({
       message: "invalied otp",
     });
