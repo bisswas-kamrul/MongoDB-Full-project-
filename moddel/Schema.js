@@ -20,6 +20,16 @@ const EmailPost = new Schema({
     type: String,
     required: true,
   },
+  otp: {
+    type: String,
+  },
+  expireotp: {
+    type: Date,
+  },
+  verification: {
+  type: Boolean,
+  default: false
+},
   
 });
 module.exports = mongoose.model("List", EmailPost);
