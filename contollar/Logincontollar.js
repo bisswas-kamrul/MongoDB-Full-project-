@@ -3,7 +3,7 @@ const List = require("../moddel/Schema");
 async function Logincontollar(req, res) {
   const { email, password } = req.body;
   const sinupUser = await List.findOne({ email });
-  if (!sinupUser) {
+  if (!sinupUser.verification) {
     return res.json({
       message: "Email error",
     });
