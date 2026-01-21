@@ -12,9 +12,9 @@ async function SingUpContollar(req, res) {
       Message: "Fill in all the blanks.",
     });
   }
-  if (!Emailvirtuals) {
+  if (!Emailvirtuals(email)) {
     return res.json({
-      Message: "email formet dik ase kina",
+      Message: "email formet sodik noy",
     });
   }
   const cheklist = await List.findOne({ email });
@@ -24,6 +24,7 @@ async function SingUpContollar(req, res) {
     });
   }
   
+  //  new OTP creact kora
   const OTP = crypto.randomInt(100000,999999).toString() // crypto.randomInt die otp genaret kore 
   const expireotpTime = new Date(Date.now() + 5 * 60 * 1000)  // eta use hoyse otp time badnaor jonno
 
