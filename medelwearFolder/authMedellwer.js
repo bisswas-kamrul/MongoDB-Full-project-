@@ -1,11 +1,10 @@
 
 function authMedellwer (req ,res , next) {
-    if (req.session && req.session.user) {
+    if (!req.session.user) {
     next();
+    return res.status(401).json({ message: 'Unauthorized' });
   } else {
-    res.status(401).json({
-      message: "Unauthorized",
-    });
+    res.json({ message: 'Profile accessed', user: req.session.user });
   }
 }
 module.exports = authMedellwer
