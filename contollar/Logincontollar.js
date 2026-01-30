@@ -19,6 +19,13 @@ async function Logincontollar(req, res) {
       message: "password Error",
     });
   }
+  // SESSION CREATE
+  req.session.user = {
+    id: sinupUser._id,
+    email: sinupUser.email,
+    name: sinupUser.Firstname,
+  };
+  // SESSION CREATE
   res.send({
     message: "Login successful",
   });
