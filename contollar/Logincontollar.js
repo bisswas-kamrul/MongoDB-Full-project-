@@ -22,6 +22,7 @@ async function Logincontollar(req, res) {
   // SESSION CREATE
   req.session.user = {
     id: sinupUser._id,
+    role: sinupUser.role,
     email: sinupUser.email,
     name: sinupUser.Firstname,
   };

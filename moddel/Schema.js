@@ -30,6 +30,11 @@ const EmailPost = new Schema({
   type: Boolean,
   default: false
 },
-  
+  role: {
+  type: String,
+  enum: ["user", "admin"],
+  default: "user"
+},
+
 });
 module.exports = mongoose.model("List", EmailPost);
