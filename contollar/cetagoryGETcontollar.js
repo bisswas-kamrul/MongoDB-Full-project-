@@ -6,4 +6,4 @@ async function cetagoryGET(req,res) {
       data:cetagorget
     });
 }
-module.exports =cetagoryGET
+module.exports = cetagoryGET
