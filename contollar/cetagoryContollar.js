@@ -1,23 +1,33 @@
 const CetagoryList = require("../moddel/cetagorySchema");
-async function cetagoryContollar(req, res) {
-  const { name, description } = req.body;
 
-  const cetagoryDubli = await CetagoryList.findOne({name});
+async function createCategory(req, res) {
+  try {
+    const { name, description } = req.body;
 
-  if (cetagoryDubli) {
-    return res.json({
-      messages: "dubleceat cetagory",
+    const duplicate = await CetagoryList.findOne({ name });
+    if (duplicate) {
+      return res.status(400).json({
+        message: "Duplicate category"
+      });
+    }
+
+    const category = new CetagoryList({
+      name,
+      description
+    });
+
+    await category.save();
+
+    res.status(201).json({
+      message: "Category created successfully",
+      data: category
+    });
+
+  } catch (error) {
+    res.status(500).json({
+      message: error.message
     });
   }
-  const cetagoryCreat = CetagoryList({
-    name: name,
-    description: description,
-  });
-  cetagoryCreat.save();
-  return res.json({
-    message: "Category created",
-  });
-
 }
 
-module.exports = cetagoryContollar
+module.exports = createCategory;
