@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const productSchema = new Schema({
+const subProductSchema = new Schema({
   name: {
     type: String,
     required: true,
@@ -17,7 +17,7 @@ const productSchema = new Schema({
 subProducts: [
   {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "SubProduct"
+    ref: "ProductList"
   }
 ],
   images: [
@@ -37,7 +37,7 @@ subProducts: [
     color: [String],   // array of colors like ["Red", "Blue"]
     size: [String],    // array of sizes like ["S", "M", "L", "XL"]
     ram: [String],     // array of RAM options like ["4GB", "8GB", "16GB"]
-  }
+  },
 }, { timestamps: true });
 
-module.exports = mongoose.model("ProductList", productSchema);
+module.exports = mongoose.model("SubProduct", subProductSchema);

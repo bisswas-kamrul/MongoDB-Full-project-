@@ -20,7 +20,7 @@ async function productContollar(req, res) {
       name,
       description,
       price,
-      images,
+      images:req.file.filename ,
       subcategory,
       attributes,
       category,
