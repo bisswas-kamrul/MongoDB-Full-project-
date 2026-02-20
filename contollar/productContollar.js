@@ -10,7 +10,7 @@ async function productContollar(req, res) {
       subcategory,
       attributes,
     } = req.body;
-
+  const imageName = req.file.filename;   //img uplod korrar ketrre  difinde kora lage 
     const productExist = await ProductList.findOne({ name });
     if (productExist) {
       return res.status(404).json({ message: "dublicet product" });
@@ -20,7 +20,7 @@ async function productContollar(req, res) {
       name,
       description,
       price,
-      images:req.file.filename ,
+      images:`http://localhost:7000/UploaderFolder/${req.file.filename}`, 
       subcategory,
       attributes,
       category,
@@ -28,6 +28,7 @@ async function productContollar(req, res) {
     await productmake.save();
     res.status(201).json({
       message: "Product created successfully",
+      images: imageName,
     });
   } catch (error) {
     console.error(error);

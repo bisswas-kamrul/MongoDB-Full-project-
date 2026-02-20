@@ -5,6 +5,7 @@ const ShowProduct = require("../../contollar/showProduct");
 const UpdeteProduct = require("../../contollar/UpdeteProductContollar");
 const deletProduct = require("../../contollar/deletProductContollar");
 const SubProductContollar = require("../../contollar/SubProductContollar");
+const allDeleteProductController = require("../../contollar/allDeleteProductController");
 
 
 const ProductRoute = express.Router();
@@ -15,5 +16,6 @@ ProductRoute.get("/ShowProduct", ShowProduct);
 ProductRoute.post("/SubProduct", SubProductContollar);
 ProductRoute.post("/UpdeteProduct/:id", UpdeteProduct);
 ProductRoute.post("/deletProduct/:id", deletProduct);
+ProductRoute.post("/allDeleteProduct", allDeleteProductController);
 
 module.exports = ProductRoute;

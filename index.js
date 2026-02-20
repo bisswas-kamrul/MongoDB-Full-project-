@@ -21,6 +21,9 @@ MongoDBrouter.use(router)
 MongoDBrouter.get('/', (req, res) => {
   res.send('Hello World from Express!');
 });
+// Static route
+MongoDBrouter.use("/uploads", express.static("UploaderFolder"));
+// Static route
 // Start the server
 DBconection()
 // Start the server
