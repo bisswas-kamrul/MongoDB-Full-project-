@@ -22,7 +22,7 @@ MongoDBrouter.get('/', (req, res) => {
   res.send('Hello World from Express!');
 });
 // Static route
-MongoDBrouter.use("/uploads", express.static("UploaderFolder"));
+MongoDBrouter.use("/uploads", express.static("UploaderFolder")); // static route দিয়ে image browser এ দেখানোর সম্পূর্ণ 
 // Static route
 // Start the server
 DBconection()
