@@ -3,6 +3,7 @@ const session = require('express-session');
 const DBconection = require('./DBconection/DBconection');
 const router = require('./route');
 const MongoDBrouter = express();
+const cors = require('cors')
 require('dotenv').config() // (API key, DB password, DB userName ,DB Name) secret rakher jonno
 
 // Define a route for GET requests to the root URL
@@ -15,6 +16,9 @@ MongoDBrouter.use(session({
   cookie: { secure: process.env.NODE_ENV === 'production', maxAge: 24 * 60 * 60 * 1000 } // 24 hours
 }))
 // session use
+// fondent with bacend pages connect korte cros npm lage
+MongoDBrouter.use(cors())
+// fondent with bacend pages connect korte cros npm lage
 // router connect
 MongoDBrouter.use(router)
 // router connect
