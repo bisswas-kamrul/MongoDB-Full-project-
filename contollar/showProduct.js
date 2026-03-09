@@ -1,15 +1,20 @@
 const ProductList = require("../moddel/productSchema");
+
 async function ShowProduct(req, res) {
-  const { name } = req.body;
-  const ShowProduct = await ProductList.findOne({ name });
-  if (!ShowProduct) {
-    return res.json({
-      messages: "ShowProduct is not found",
-      data: ShowProduct,
+  try {
+    const products = await ProductList.find();
+
+    res.send({
+      message: "Show Product List",
+      data: products,
+    });
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).send({
+      message: "Server Error",
     });
   }
-   return res.send({
-      messages:"Show productList"
-    })
 }
+
 module.exports = ShowProduct;

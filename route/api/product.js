@@ -14,7 +14,7 @@ ProductRoute.use(express.json());
 ProductRoute.post("/ProductCreact",upload.single('images'), productContollar);
 ProductRoute.get("/ShowProduct", ShowProduct);
 ProductRoute.post("/SubProduct", SubProductContollar);
-ProductRoute.post("/UpdeteProduct/:id", UpdeteProduct);
+ProductRoute.put("/UpdeteProduct/:id", UpdeteProduct);
 ProductRoute.post("/deletProduct/:id", deletProduct);
 ProductRoute.post("/allDeleteProduct", allDeleteProductController);
 
