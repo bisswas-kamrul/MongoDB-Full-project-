@@ -1,33 +1,47 @@
 const ProductList = require("../moddel/productSchema");
-async function UpdeteProduct(req, res) {
-try {
- const { id } = req.params;
- const {
-    name,
-    description,
-    price,
-    category,
-    images,
-    subcategory,
-    attributes,
-  } = req.body;
-  const updateProduct = await ProductList.findById(id);
-  updateProduct.name = name;
-  updateProduct.description = description;
-  updateProduct.category = category;
-  updateProduct.price = price;
-  updateProduct.size = subcategory;
-  updateProduct.color = images;
-  updateProduct.ram = attributes;
-  await updateProduct.save()
-  
-    res.status(201).json({
-      message: "Product created successfully",
-    });
-} catch (error) {
-    res.status(500).json({ message: error.message });
-}
-}
+const cloudinary = require("../medelwearFolder/cloudinary");
+const fs = require("fs");
 
- 
-module.exports = UpdeteProduct;
+const updateProduct = async (req, res) => {
+
+  try {
+    const { id } = req.params;
+
+    const { name, description, price} = req.body;
+
+    let updateData = {
+      name,
+      description,
+      price,
+    };
+
+    if (req.file) {
+
+      const result = await cloudinary.uploader.upload(req.file.path);
+
+      fs.unlinkSync(req.file.path);
+
+      updateData.images = [result.secure_url];
+
+    }
+
+    const updatedProduct = await ProductList.findByIdAndUpdate(
+      id,
+      updateData,
+      { new: true }
+    );
+
+    res.json({
+      message: "Product Updated Successfully",
+      data: updatedProduct
+    });
+
+  } catch (error) {
+
+    res.status(500).json({ message: error.message });
+
+  }
+
+};
+
+module.exports = updateProduct;
