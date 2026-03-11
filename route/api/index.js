@@ -1,7 +1,7 @@
 const express = require('express'); 
 const authrouter = require('./auth'); // authJs theke input kora
 const cetagoryRoute = require('./cetagory');
-const ProductRoute = require ('./product')
+const ProductRoute = require ('./product');
 const apiroutere = express.Router()
 
 // router connect
