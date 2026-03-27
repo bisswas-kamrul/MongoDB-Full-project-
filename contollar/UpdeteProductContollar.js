@@ -7,12 +7,15 @@ const updateProduct = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const { name, description, price} = req.body;
+    const { name, description, price ,category ,subcategory ,attributes} = req.body;
 
-    let updateData = {
+    const updateData = {
       name,
       description,
       price,
+      category,
+      subcategory,
+      attributes,
     };
 
     if (req.file) {
