@@ -20,6 +20,10 @@ const EmailPost = new Schema({
     type: String,
     required: true,
   },
+  newpassword:{
+    type:String,
+    require:true,
+  },
   otp: {
     type: String,
   },
@@ -27,14 +31,16 @@ const EmailPost = new Schema({
     type: Date,
   },
   verification: {
-  type: Boolean,
-  default: false
-},
+    type: Boolean,
+    default: false,
+  },
   role: {
-  type: String,
-  enum: ["user", "admin"],
-  default: "user"
-},
-
+    type: String,
+    enum: ["user", "admin"],
+    default: "user",
+  },
+  googleId: { type: String },
+  resetToken: { type: String },
+  resetTokenExpiry: { type: Date },
 });
 module.exports = mongoose.model("List", EmailPost);

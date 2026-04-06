@@ -1,34 +1,36 @@
 const bcrypt = require("bcrypt");
 const List = require("../moddel/Schema");
+
 async function Logincontollar(req, res) {
   const { email, password } = req.body;
+
   const sinupUser = await List.findOne({ email });
+
+  // Check if user exists
+  if (!sinupUser) {
+    return res.status(400).json({ message: "Email not found" });
+  }
+
+  // Check if email is verified
   if (!sinupUser.verification) {
-    return res.json({
-      message: "Email error",
-    });
+    return res.status(400).json({ message: "Email not verified" });
   }
-  //   if (sinupUser.password !== password) {
-  //     return res.json({
-  //       message: "password Error",
-  //     });
-  //   }
-  const isMatch = await bcrypt.compare(password, sinupUser.password); //   hash taq newar karone password mach kore nay tay compear kora lage setar jonnu eta newa
+
+  // Compare password
+  const isMatch = await bcrypt.compare(password, sinupUser.password);
   if (!isMatch) {
-    return res.json({
-      message: "password Error",
-    });
+    return res.status(400).json({ message: "Password incorrect" });
   }
-  // SESSION CREATE
+
+  // Create session
   req.session.user = {
     id: sinupUser._id,
     role: sinupUser.role,
     email: sinupUser.email,
     name: sinupUser.Firstname,
   };
-  // SESSION CREATE
-  res.send({
-    message: "Login successful",
-  });
+
+  res.json({ message: "Login successful" });
 }
+
 module.exports = Logincontollar;
