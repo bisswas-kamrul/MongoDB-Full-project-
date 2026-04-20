@@ -22,7 +22,6 @@ const EmailPost = new Schema({
   },
   newpassword:{
     type:String,
-    require:true,
   },
   otp: {
     type: String,

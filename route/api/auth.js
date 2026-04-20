@@ -9,6 +9,8 @@ const authMedellwer = require('../../medelwearFolder/authMedellwer');
 const ForgotPasswordContollar = require('../../contollar/ForgotPasswordContollar');
 const ResetPasswordContollar = require('../../contollar/ResetPasswordContollar');
 const googleloginContollar = require('../../contollar/googleloginContollar');
+const UserContollar = require('../../contollar/Usercontollar');
+const deletUserContollar = require('../../contollar/deletUserContollar');
 const authrouter = express.Router()
 authrouter.use(express.json());
 
@@ -19,8 +21,9 @@ authrouter.post('/resend',ResendOTPcontollar)
 authrouter.post('/logout',logoutcontollar)
 authrouter.post('/dashboard', dashboardContollar)
 authrouter.post('/ForgotPassword', ForgotPasswordContollar)
+authrouter.post('/deletUser/:id', deletUserContollar)
 authrouter.post('/ResetPassword/:token', ResetPasswordContollar)
 authrouter.post('/googlelogin', googleloginContollar)
 authrouter.get('/dashboard', authMedellwer)
-
+authrouter.get('/User', UserContollar)
 module.exports = authrouter

@@ -3,35 +3,41 @@ const session = require('express-session');
 const DBconection = require('./DBconection/DBconection');
 const router = require('./route');
 const MongoDBrouter = express();
-const cors = require('cors')
+const cors = require('cors');
+const authMedellwer = require('./medelwearFolder/authMedellwer');
 require('dotenv').config() // (API key, DB password, DB userName ,DB Name) secret rakher jonno
 // Define a route for GET requests to the root URL
-// session use
-MongoDBrouter.use(session({
-  name: "auth_session",
-  secret: 'bkd@gc24',
-  resave: false,
-  saveUninitialized: false,
-  cookie: { secure: process.env.NODE_ENV === 'production', maxAge: 24 * 60 * 60 * 1000 } // 24 hours
-}))
-// session use
 // fondent with bacend pages connect korte cros npm lage
 MongoDBrouter.use(cors({
   origin: "http://localhost:5173",
   credentials: true,
 }));
 // fondent with bacend pages connect korte cros npm lage
+MongoDBrouter.use(express.json());
+// session use
+MongoDBrouter.use(session({
+  name: "auth_session",
+  secret: "bkd@gc24",
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    secure: false,
+    httpOnly: true,
+    maxAge: 24 * 60 * 60 * 1000
+  }
+}));
+// session use
 // router connect
 MongoDBrouter.use(router)
 // router connect
-//  login route
-MongoDBrouter.post("/Login", (req, res) => {
-  const { username } = req.body;
-  if (!username) return res.status(400).json({ message: "Username required" });
-  req.session.user = { name: username };
-  res.status(200).json({ message: "Login successful" });
+// Admin rout
+MongoDBrouter.get('/dashboard', authMedellwer, (req, res) => {
+  res.json({ 
+    message: "Admin dashboard accessed",
+    user: req.session.user
+  });
 });
-//  login route
+// Admin rout
 // Logout route
 MongoDBrouter.post("/logout", (req, res) => {
   req.session.destroy((err) => {

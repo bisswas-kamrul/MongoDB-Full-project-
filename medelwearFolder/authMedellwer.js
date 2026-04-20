@@ -1,10 +1,8 @@
-
-function authMedellwer (req ,res , next) {
-    if (req.session.user && req.user.role !== "admin") {
-      next();
-      return res.status(401).json({ message: 'Unauthorized' });
-  } else {
-    res.json({ message: 'Profile accessed', user: req.session.user });
+function authMedellwer(req, res, next) {
+  if (!req.session.user) {
+    return res.status(401).json({ message: "Not logged in" });
   }
+  next();
 }
-module.exports = authMedellwer
+
+module.exports = authMedellwer;

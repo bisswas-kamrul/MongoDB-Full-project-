@@ -25,9 +25,10 @@ async function Logincontollar(req, res) {
   // Create session
   req.session.user = {
     id: sinupUser._id,
-    role: sinupUser.role,
     email: sinupUser.email,
-    name: sinupUser.Firstname,
+    Firstname: sinupUser.Firstname,
+    lastname: sinupUser.lastname,
+    role: sinupUser.role,
   };
 
   res.json({ message: "Login successful" });
