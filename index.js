@@ -31,7 +31,7 @@ MongoDBrouter.use(session({
 MongoDBrouter.use(router)
 // router connect
 // Admin rout
-MongoDBrouter.get('/dashboard', authMedellwer, (req, res) => {
+MongoDBrouter.get('/Useronely', authMedellwer, (req, res) => {
   res.json({ 
     message: "Admin dashboard accessed",
     user: req.session.user
